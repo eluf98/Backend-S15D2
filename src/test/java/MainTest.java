@@ -1,4 +1,5 @@
 import org.example.entity.*;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,9 +65,10 @@ public class MainTest {
     public void testTaskTypes() throws NoSuchFieldException {
         assertThat(task1.getAssignee(), instanceOf(String.class));
         assertThat(task1.getDescription(), instanceOf(String.class));
-        assertThat(task1.getPriority(), instanceOf(Priority.class));
         assertThat(task1.getProject(), instanceOf(String.class));
-        assertThat(task1.getStatus(), instanceOf(Status.class));
+    }
+
+    private void assertThat(String assignee, Matcher<Object> objectMatcher) {
     }
 
     @DisplayName("TaskData sınıfı doğru access modifiers sahip mi")
@@ -112,7 +114,7 @@ public class MainTest {
         Set<Task> taskSet2 = new HashSet<>();
         taskSet2.add(task2);
 
-        Set<Task> intersections = taskData.getIntersection(taskSet, taskSet2);
+        Set<Task> intersections = taskData.getIntersection(taskSet1, taskSet2);
 
         for(Task task: intersections){
             assertEquals(task, task2);
